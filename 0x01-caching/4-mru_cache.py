@@ -9,7 +9,7 @@ from base_caching import BaseCaching
 
 class MRUCache(BaseCaching):
     """
-    Mostly Recently Usef (LRU) caching system
+    Most Recently Used (LRU) caching system
     """
     def __init__(self):
         """
