@@ -4,6 +4,7 @@ Create a class LIFOCache that inherits
 from BaseCaching and is a caching system:
 """
 
+from collections import OrderedDict
 from base_caching import BaseCaching
 
 
@@ -16,22 +17,23 @@ class LIFOCache(BaseCaching):
         Initialize the class
         """
         super().__init__()
-        self.last_key = None
+        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         """
         Add an item into the cache
         """
-        if key is None and item is None:
+        if key is None or item is None:
             return
+
+        if key in self.cache_data:
+            self.cache_data.move_to_end(key)
+
         self.cache_data[key] = item
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            self.cache_data[key] = item
-            if self.last_key is not None:
-                del self.cache_data[self.last_key]
-                print(f"DISCARD: {self.last_key}")
-        self.last_key = key
+            last_key, _ = self.cache_data.popitem(last=True)
+            print(f"DISCARD: {last_key}")
 
     def get(self, key):
         """
