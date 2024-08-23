@@ -36,7 +36,7 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None,
-                        page_size: int = 10) -> Dict[str, Any]:
+                        page_size: int = 10):
         """
         Return a dictionary containing the pagination
         information that is resilient to deletions.
