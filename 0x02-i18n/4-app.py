@@ -6,7 +6,7 @@ Use the _ or gettext function
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 babel = Babel(app)
 
 
@@ -22,8 +22,17 @@ class Config:
 app.config.from_object(Config)
 
 
+@app.route('/', methods=['GET'], strict_slashes=False)
+def hello_world() -> str:
+    """
+    render template and parametrize your templates
+     Use the message IDs home_title and home_header
+    """
+    return render_template('4-index.html')
+
+
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
     Get locale
     detect if the incoming request contains locale argument
@@ -35,18 +44,6 @@ def get_locale():
     if locale in app.config['LANGUAGES']:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-@app.route('/')
-def index():
-    """
-    render template and parametrize your templates
-     Use the message IDs home_title and home_header
-    """
-    home_title = _("Welcome to Holberton")
-    home_header = _("Hello world!")
-    return render_template('4-index.html',
-                           title=home_title, header=home_header)
 
 
 if __name__ == "__main__":

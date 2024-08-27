@@ -6,7 +6,7 @@ instantiate the Babel object in your app.
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 babel = Babel(app)
 
 
@@ -30,8 +30,8 @@ def get_locale():
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
-@app.route('/')
-def index():
+@app.route('/', methods=['GET'], strict_slashes=False)
+def hello_world() -> str:
     """
     render template
     """
