@@ -6,8 +6,8 @@ instantiate the Babel object in your app.
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
-app_flask = Flask(__name__)
-babel = Babel(app_flask)
+app = Flask(__name__)
+babel = Babel(app)
 
 
 class Config:
@@ -19,7 +19,7 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-app_flask.config.from_object(Config)
+app.config.from_object(Config)
 
 
 @babel.localeselector
@@ -27,10 +27,10 @@ def get_locale():
     """
     Get locale
     """
-    return request.accept_languages.best_match(app_flask.config["LANGUAGES"])
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
-@app_flask.route('/')
+@app.route('/')
 def index():
     """
     render template
@@ -39,4 +39,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app_flask.run(debug=True)
+    app.run(debug=True)
