@@ -14,18 +14,16 @@ client.connect()
 
 
 function setNewSchool(schoolName, value){
-    client.set(schoolName, value, redis.print);    
+    client.set(schoolName, value, redis.print);
 }
 
 function displaySchoolValue(schoolName){
     client.get(schoolName, (error, result) => {
-        if (error) {
-            console.log(error);
-        } else {
             console.log(result);
         }
-    });
+    );
 }
 
-setNewSchool('Holberton', '100');
 displaySchoolValue('Holberton');
+setNewSchool('HolbertonSanFrancisco', '100');
+displaySchoolValue('HolbertonSanFrancisco');

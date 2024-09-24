@@ -15,4 +15,4 @@ function sendNotification(phoneNumber, message, job, done) {
 const queue = kue.createQueue();
 queue.process("push_notification_code_2", 2, (job, done) => {
     sendNotification(job.data.phoneNumber, job.data.message, job, done);
-})
+});
